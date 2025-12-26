@@ -25,8 +25,8 @@
     4.Choose the tracking mode:
         Admin Side Node View – Tracks node views from the Drupal admin interface.
         Headless Implementation – Tracks node access via APIs or headless frontends.
-        Both – Tracks access from both ad
-  ## Headless Configuration
+        Both – Tracks access from both
+  ### Headless Configuration
     5.An additional Headless Configuration tab will be displayed.
     6.In this tab, configure the API route details used for headless access.
        API route / endpoint path
