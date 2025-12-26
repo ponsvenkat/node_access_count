@@ -1,0 +1,8 @@
+name: Node Access Count
+type: module
+description: This module tracks the number of views or accesses for nodes in the system. It also provides an API endpoint to record and retrieve node access details, and allows configuration of content type-specific settings.
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:node
+configure: node_access_count.settings.general

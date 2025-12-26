@@ -1,0 +1,28 @@
+node_access_count.settings:
+  path: '/admin/config/content/node-access-count'
+  defaults:
+    _title: 'Node Access Count'
+  options:
+    _redirect: '/admin/config/content/node-access-count/general'
+  requirements:
+    _permission: 'administer site configuration'
+
+node_access_count.settings.general:
+  path: '/admin/config/content/node-access-count/general'
+  defaults:
+    _form: '\Drupal\node_access_count\Form\NodeAccessCountSettings'
+    _title: 'Node Access Count settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+node_access_count.settings.api:
+  path: '/admin/config/content/node-access-count/api'
+  defaults:
+    _form: '\Drupal\node_access_count\Form\NodeAccessApiSettingsForm'
+    _title: 'Node Access API settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

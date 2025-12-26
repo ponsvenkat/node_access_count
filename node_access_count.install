@@ -1,0 +1,90 @@
+<?php
+/**
+ * @file
+ * Install, update, and uninstall functions for the Node Access module.
+ */
+
+use Drupal\Core\Database\SchemaObjectExistsException;
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_schema().
+ */
+  function node_access_count_schema() {
+    $schema['node_access_count'] = [
+      'fields' => [
+        'id' => ['type' => 'serial', 'not null' => TRUE],
+        'nid' => ['type' => 'int', 'not null' => TRUE,'description' => 'Node ID of the resource.',],
+        'uid' => ['type' => 'int', 'not null' => TRUE,'description' => 'User ID who accessed the resource.',],
+        'timestamp' => ['type' => 'int', 'not null' => TRUE],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'nid_uid' => ['nid', 'uid'],
+      ],
+      'foreign keys' => [
+        'node_access_count_uid' => [
+          'table' => 'users',
+          'columns' => [
+            'uid' => 'uid',
+          ],
+        ],
+        // Maps nid to the node entity’s base table.
+        'node_access_count_nid' => [
+          'table' => 'node_field_data',
+          'columns' => ['nid' => 'nid'],
+        ],
+      ],
+    ];
+
+     $schema['node_access_summary'] = [
+      'fields' => [
+        'nid' => ['type' => 'int', 'not null' => TRUE,'description' => 'Node ID of the resource.',],
+        'total_views' => ['type' => 'int', 'not null' => TRUE, 'default' => 1,'description' => 'Number of times the user accessed this node.',],
+        'last_updated' => ['type' => 'int', 'not null' => TRUE],
+      ],
+      'primary key' => ['nid'],
+      'indexes' => [
+        'nid' => ['nid'],
+        'total_views_index' => ['total_views'],
+      ],
+      'foreign keys' => [
+        // Maps nid to the node entity’s base table.
+        'node_access_summary_nid' => [
+          'table' => 'node_field_data',
+          'columns' => ['nid' => 'nid'],
+        ],
+      ],
+    ];
+    return $schema;
+  
+  }
+
+/**
+ * Implements hook_uninstall().
+ */
+function node_access_count_uninstall() {
+  $schema = \Drupal::database()->schema();
+
+  // Drop custom tables created by this module.
+  if ($schema->tableExists('node_access_count')) {
+    $schema->dropTable('node_access_count');
+  }
+
+  if ($schema->tableExists('node_access_summary')) {
+    $schema->dropTable('node_access_summary');
+  }
+
+  // Optionally delete any state or config values.
+  \Drupal::configFactory()->getEditable('node_access_count.settings')->delete();
+}
+
+
+function node_access_count_update_9001() {
+  $schema = \Drupal::database()->schema();
+
+  if (!$schema->indexExists('node_access_summary', 'total_views_index')) {
+    $schema->addIndex('node_access_summary', 'total_views_index', ['total_views']);
+  }
+}

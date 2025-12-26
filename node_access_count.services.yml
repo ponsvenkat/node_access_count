@@ -1,0 +1,9 @@
+services:
+  node_access_count.subscriber:
+    class: Drupal\node_access_count\EventSubscriber\NodeAccessCountSubscriber
+    arguments:
+      - '@database'
+      - '@current_user'
+      - '@config.factory'
+    tags:
+      - { name: event_subscriber }

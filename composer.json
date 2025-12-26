@@ -1,0 +1,21 @@
+{
+  "name": "drupal/node_access_count",
+  "description": "Tracks node access count across admin views and headless (REST / JSON:API) implementations.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "drupal/core": "^11"
+  },
+  "homepage": "https://www.drupal.org/project/node_access_count",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/node_access_count",
+  },
+  "authors": [
+    {
+      "name": "Pons Venkat",
+      "role": "Maintainer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

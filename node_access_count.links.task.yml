@@ -1,0 +1,9 @@
+node_access_count.settings.general:
+  route_name: node_access_count.settings.general
+  title: 'General Settings'
+  base_route: node_access_count.settings
+
+node_access_count.settings.api:
+  route_name: node_access_count.settings.api
+  title: 'API Tracking'
+  base_route: node_access_count.settings
